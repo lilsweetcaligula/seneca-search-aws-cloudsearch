@@ -40,7 +40,10 @@ function search_aws(options) {
         return reply(err)
       }
 
-      return reply(null, { ok: true, data: out })
+
+      const hits = out.hits.hit
+
+      return reply(null, { ok: true, data: { hits } })
     })
   })
 
