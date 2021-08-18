@@ -1,7 +1,7 @@
 const AWS = require('aws-sdk')
 
 
-function search_aws(options) {
+function search_aws_cloudsearch(options) {
   const seneca = this
 
 
@@ -141,4 +141,4 @@ function search_aws(options) {
 }
 
 
-module.exports = search_aws
+module.exports = search_aws_cloudsearch

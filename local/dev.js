@@ -1,6 +1,6 @@
 const Assert = require('assert')
 const Seneca = require('seneca')
-const SenecaSearchAws = require('./search-aws')
+const SenecaSearchAws = require('../search-aws-cloudsearch')
 
 
 async function run() {
