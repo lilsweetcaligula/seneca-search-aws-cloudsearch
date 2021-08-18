@@ -41,7 +41,41 @@ function search_aws(options) {
       }
 
 
-      const hits = out.hits.hit
+      console.dir(out, { depth: 32 }) // dbg
+
+      const hits = out.hits.hit.map(hit => {
+        const { id, fields } = hit
+
+
+        const doc = Object.keys(fields).reduce((acc, k) => {
+          /* NOTE: AWS.CloudSearchDomain#search wraps values in arrays,
+           * like this:
+           *
+              ```
+              {
+                hits: {
+                  found: 3,
+                  start: 0,
+                  hit: [
+                    { id: '1002', fields: { name: [ 'foo' ], extra: [ 'bob' ] } }
+                  ]
+                }
+              }
+              ```
+
+           * - hence, we unwrap the values.
+           *
+           */
+
+          acc[k] = fields[k][0]
+
+          return acc
+        }, {})
+
+
+        return { id, doc }
+      })
+
 
       return reply(null, { ok: true, data: { hits } })
     })
