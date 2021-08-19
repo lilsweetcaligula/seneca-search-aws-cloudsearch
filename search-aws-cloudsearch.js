@@ -59,7 +59,6 @@ function search_aws_cloudsearch(options) {
 
 
     if ('ok' !== added.status) {
-      console.error(added.status)
       return reply(null, { ok: false, why: 'add-failed' })
     }
 
@@ -95,8 +94,6 @@ function search_aws_cloudsearch(options) {
         return reply(err)
       }
 
-
-      console.dir(out, { depth: 32 }) // dbg
 
       const hits = out.hits.hit.map(hit => {
         const { id, fields } = hit

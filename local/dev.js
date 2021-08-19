@@ -19,8 +19,7 @@ async function run() {
 
 
   const docs = [
-    { id: 1001, name: 'bob' },
-    { id: 1002, name: 'foo', extra: 'bob' }
+    { id: 1001, name: 'bob' }
   ]
 
   for (const doc of docs) {
@@ -30,10 +29,10 @@ async function run() {
 
 
   const out = await seneca.post('sys:search,cmd:search', {
-    query: 'bobb'
+    query: 'bob'
   })
 
-  console.dir(out, { depth: 32 }) // dbg
+  console.dir(out, { depth: 32 })
 
 
   return
