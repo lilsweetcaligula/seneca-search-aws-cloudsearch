@@ -4,7 +4,9 @@
   "description": "",
   "main": "search-aws-cloudsearch.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-local": "./scripts/start-aws-cloudsearch-sim.sh",
+    "stop-local": "./scripts/stop-aws-cloudsearch-sim.sh"
   },
   "keywords": [],
   "author": "",
