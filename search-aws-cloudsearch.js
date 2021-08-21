@@ -88,7 +88,8 @@ function search_aws_cloudsearch(options) {
      *
      */
     const search_params = { query }
-    
+
+
     return csd.search(search_params, function (err, out) {
       if (err) {
         return reply(err)
@@ -131,6 +132,41 @@ function search_aws_cloudsearch(options) {
 
       return reply(null, { ok: true, data: { hits } })
     })
+  })
+
+
+  seneca.add('sys:search,cmd:remove', async function (msg, reply) {
+    if (null == msg.id) {
+      return {
+        ok: false,
+        why: 'invalid-field',
+        details: {
+          path: ['id'],
+          why_exactly: 'required'
+        }
+      }
+    }
+
+    const { id: doc_id } = msg
+
+
+    const removed = await csd.uploadDocuments({
+      contentType: 'application/json',
+      documents: Buffer.from(JSON.stringify([
+        {
+          type: 'delete',
+          id: doc_id
+        }
+      ]))
+    }).promise()
+
+
+    if ('ok' !== removed.status) {
+      return reply(null, { ok: false, why: 'remove-failed' })
+    }
+
+
+    return reply(null, { ok: true })
   })
 
 
