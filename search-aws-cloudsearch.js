@@ -15,28 +15,28 @@ function search_aws_cloudsearch(options) {
 
   seneca.add('sys:search,cmd:add', async function (msg, reply) {
     if (null == msg.doc) {
-      return {
+      return reply(null, {
         ok: false,
         why: 'invalid-field',
         details: {
           path: ['doc'],
           why_exactly: 'required'
         }
-      }
+      })
     }
 
     const { doc } = msg
 
 
     if (null == typeof doc.id) {
-      return {
+      return reply(null, {
         ok: false,
         why: 'invalid-field',
         details: {
           path: ['doc', 'id'],
           why_exactly: 'required'
         }
-      }
+      })
     }
 
     const { id: doc_id } = doc
@@ -55,9 +55,7 @@ function search_aws_cloudsearch(options) {
           fields
         }
       ]))
-    })
-      .promise()
-      .catch(reply)
+    }).promise()
 
 
     if ('ok' !== added.status) {
@@ -71,14 +69,14 @@ function search_aws_cloudsearch(options) {
 
   seneca.add('sys:search,cmd:search', function (msg, reply) {
     if (null == msg.query) {
-      return {
+      return reply(null, {
         ok: false,
         why: 'invalid-field',
         details: {
           path: ['query'],
           why_exactly: 'required'
         }
-      }
+      })
     }
 
     const { query } = msg
@@ -90,8 +88,7 @@ function search_aws_cloudsearch(options) {
      *
      */
     const search_params = { query }
-
-
+    
     return csd.search(search_params, function (err, out) {
       if (err) {
         return reply(err)
@@ -139,14 +136,14 @@ function search_aws_cloudsearch(options) {
 
   seneca.add('sys:search,cmd:remove', async function (msg, reply) {
     if (null == msg.id) {
-      return {
+      return reply(null, {
         ok: false,
         why: 'invalid-field',
         details: {
           path: ['id'],
           why_exactly: 'required'
         }
-      }
+      })
     }
 
     const { id: doc_id } = msg
@@ -160,9 +157,7 @@ function search_aws_cloudsearch(options) {
           id: doc_id
         }
       ]))
-    })
-      .promise()
-      .catch(reply)
+    }).promise()
 
 
     if ('ok' !== removed.status) {
