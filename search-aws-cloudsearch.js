@@ -55,7 +55,9 @@ function search_aws_cloudsearch(options) {
           fields
         }
       ]))
-    }).promise()
+    })
+      .promise()
+      .catch(reply)
 
 
     if ('ok' !== added.status) {
@@ -158,7 +160,9 @@ function search_aws_cloudsearch(options) {
           id: doc_id
         }
       ]))
-    }).promise()
+    })
+      .promise()
+      .catch(reply)
 
 
     if ('ok' !== removed.status) {
